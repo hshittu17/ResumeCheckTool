@@ -1,7 +1,6 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.jsx'
+import './App.css'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -17,13 +16,23 @@ const dropArea = document.getElementById('file-upload-area');
     dropArea.addEventListener(eventName, preventDefaults, false)
 });
 
+const initApp = () => {
+  const dropArea = document.querySelector('#file-upload-area');
+  /*const active = () => dropArea.classList.add(''); //decide how you want 
+   the drop area to be 
+   const inactive = () => dropArea.classList.remove(''); 
+   */
+
+
+}
+
 function preventDefaults (e) {
   e.preventDefault()
   e.stopPropagation()
 }
 
 // Highlight drop area when item is dragged over it
-['dragenter', 'dragover'].forEach(eventName => {
+['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
   dropArea.addEventListener(eventName, highlight, false)
 })
 
@@ -52,6 +61,7 @@ function handleDrop(e) {
 function handleFiles(files) {
   files = [...files]
   files.forEach(previewFile)
+  console.log(files);
 }
 
 function previewFile(file) {
@@ -63,3 +73,14 @@ function previewFile(file) {
     document.getElementById('file-upload-area').appendChild(img)
   }
 }
+
+const gradyent = document.querySelector('.file-upload-area');
+
+gradyent.addEventListener('mousemove', (e) => {
+const rect = e.target.getBoundingClientRect();
+const x = e.clientX - rect.left;
+const y = e.clientY - rect.top;
+
+gradyent.current.style.setProperty('--x', x + `${clientX}px`);
+gradyent.current.style.setProperty('--y', y + `${clientY}px`);
+});
