@@ -120,6 +120,12 @@ head {
   display: grid;
 }
 
+#rrlogo {
+  position: relative;
+  width: 7rem;
+  border-radius: 100%;
+}
+
 /* trying to add interactive gradient
 #file-upload-area span {
   position: relative;
