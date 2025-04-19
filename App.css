@@ -44,7 +44,7 @@ h1 {
   text-align: center;
 }
 
-button {
+#resumebutton {
   border-radius: 8px;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
@@ -58,12 +58,12 @@ button {
   margin: 1em;
   text-align: center;
 }
-button:hover {
+#resumebutton:hover {
   background-color: #FFF;
   color: #1a1a1a;
 }
-button:focus,
-button:focus-visible {
+#resumebutton:focus,
+#resumebutton:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
@@ -71,6 +71,8 @@ button:focus-visible {
   background-color: #242424;
   border-color: #00F700;
   color: #FFF;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
 }
 .alterbutton:hover {
   border-color: #fff;
@@ -109,11 +111,22 @@ section {
   grid-column: 1;
   margin: 1em;
   width: 100%;
+  text-shadow: rgb(0, 0, 0) 1px 0 10px;
 }
 #job-description {
   grid-row: 2;
   grid-column: 1;
-  align-items: center
+  align-items: center;
+  width: 125%;
+  padding: 3em;
+  background: linear-gradient(125deg,rgba(0, 125, 0, 1) 0%, rgba(36, 36, 36, 0) 50%);
+  border-color: #00F700;
+  text-shadow: rgb(0, 0, 0) 1px 0 10px;
+  border-weight: 1px;
+  border-style: solid;
+  border-radius: 8px;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
 }
 
 head {
@@ -126,6 +139,18 @@ head {
   border-radius: 100%;
 }
 
+#job-description-input {
+  border-color: #ffffff;
+  background: rgba(255, 255, 255, 0);
+  text-color: #ffffff;
+  border-weight: 1px;
+  border-bottom-style: solid;
+  border-top: #FFF;
+  border-radius: 4px;
+  padding: 1em;
+  margin-top: 1em;
+  width: 80%;
+}
 /* trying to add interactive gradient
 #file-upload-area span {
   position: relative;
