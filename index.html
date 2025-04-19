@@ -14,23 +14,27 @@
 </section>
 
 
+<form method="post" enctype="multipart/form-data"></form> <!-- use action attribute to send the data somewhere. insert url-->
 <section>
-  <div id="job-description">
+  <div id="job-description" class="jd">
       <h2>Job Description</h2>
-      <p>Paste the job description here</p>
+      <label>What role are you applying for?
+        <input type="text" id="job-description-input" class="jd-input" placeholder="Paste job description here:" />
+      </label>
   </div>
 </section>
 
 
   <section>
     <div id="file-upload-area" class="dropArea">
-        <button>Upload Resume</button>
+        <input class="resumebutton" type="file" accept=".docx,.doc,.pdf">Upload Resume</input>
         <p>Or drop a file</p>
         <p>.docx or .pdf</p>
         <!--insert inbox emoji-->
       <p>📤</p>
     </div>
 </section>
+</form>
 
 <section>
   <button class="alterbutton">View History</button>
