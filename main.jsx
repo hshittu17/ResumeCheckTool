@@ -97,6 +97,82 @@ function previewFile(file) {
   }
 }
 
+const input = document.querySelector("input");
+const preview = document.querySelector(".jd");
+
+input.style.opacity = 0;
+
+input.addEventListener("change", updateFileDisplay);
+
+//checks if the file is a valid type
+const fileTypes = [
+  "application/pdf", 
+  "application/msword,", //doc
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.document", //docx
+];
+function validFileType(file) {
+  return fileTypes.includes(file.type);
+}
+
+function updateFileDisplay() {
+  //while loop to empty the previous contents
+  while (preview.firstChild) {
+    preview.removeChild(preview.firstChild);
+  }
+  
+  //sets the current file to the input file as an array
+  const curFiles = input.files;
+  if (curFiles.length === 0) {
+    const para = document.createElement("p");
+    para.textContent = "No files currently selected for upload";
+    preview.appendChild(para);
+  } else { //since the list is not empty, we can create a list and append the files to it
+    const list = document.createElement("ol");
+    preview.appendChild(list);
+
+    // Loop through the file list and create a html list item for each file
+    for (const file of curFiles) {
+      const listItem = document.createElement("li");
+      const para = document.createElement("p");
+      if (validFileType(file)) {
+        para.textContent = `File name ${file.name}, file size ${returnFileSize(
+          file.size,
+        )}.`;
+        const image = document.createElement("img");
+        image.src = URL.createObjectURL(file);
+        image.alt = image.title = file.name;
+
+        listItem.appendChild(image);
+        listItem.appendChild(para);
+      } else {
+        para.textContent = `File name ${file.name}: Not a valid file type. Update your selection.`;
+        listItem.appendChild(para);
+      }
+
+      list.appendChild(listItem);
+    }
+  }
+}
+
+  /* auto complete code that checks filelist from the html, appends uploaded files to an empty list but checks if the list is empty first const curFiles = input.files;
+  const curFiles = input.files;
+  console.log(curFiles);
+  const fileList = document.querySelector(".file-list");
+  fileList.innerHTML = "";
+  if (curFiles.length === 0) {
+    const listItem = document.createElement("li");
+    listItem.textContent = "No files currently selected for upload";
+    fileList.appendChild(listItem);
+  } else {
+    for (const file of curFiles) {
+      const listItem = document.createElement("li");
+      listItem.textContent = `${file.name} (${file.size} bytes)`;
+      fileList.appendChild(listItem);
+    }
+  }
+*/
+
+
 /* trying to add gradient follows cursor effect
 const gradyent = document.querySelector('.file-upload-area');
 
