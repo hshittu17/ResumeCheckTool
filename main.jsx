@@ -1,5 +1,7 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
+import React from 'react';
+import ReactDOM from 'react-dom';
 import './App.css'
 /*
 createRoot(document.getElementById('root')).render(
@@ -9,95 +11,96 @@ createRoot(document.getElementById('root')).render(
 )
   */
 
+// File Upload and Preview Functionality after submit button click
+document.addEventListener('DOMContentLoaded', () => {
+  const file_input = document.querySelector('#file-upload-area');
+  const submitButton = document.querySelector('.submitButton');
+  const dropArea = document.querySelector('.dropArea');
+  const submittedFilesList = document.querySelector('submittedFilesList');
 
+  const submittedFiles = [];
 
+  const formatFileSize = (bytes) => {
+    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+    if (bytes === 0) return '0 Byte';
+    const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
+    return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
+  };
 
- //auto complete code that checks filelist from the html, appends uploaded files to an empty list but checks if the list is empty first const curFiles = input.files;
- const file_input = document.querySelector("#file-upload-area");
- file_input.addEventListener("change", updateFileList);
-const preview = document.querySelector(".preview");
+  const previewFile = (file) => {
+    const fileURL = URL.createObjectURL(file);
+    const preview = `
+      <p><strong>${file.name}</strong></p>
+      <p>Size: ${formatFileSize(file.size)}</p>
+      ${file.type === 'application/pdf' 
+        ? `<embed src="${fileURL}" width="100%" height="400px" type="application/pdf" />` 
+        : `<p>Preview not available for this file type. Download below:</p>
+           <a href="${fileURL}" download="${file.name}">Download ${file.name}</a>`}
+    `;
+    dropArea.innerHTML = preview;
+  };
 
-function validFileType(file) {
-  const fileTypes = [
-    ".docx",
-    ".doc",
-    ".pdf"
-  ];
-  return fileTypes.includes(file.type);
-}
-/*
-function returnFileSize(size) => {
-  if (size < 1024) return `${size} bytes`;
-  else if (size < 1048576) return `${(size / 1024).toFixed(2)} KB`;
-  else return `${(size / 1048576).toFixed(2)} MB`;
-}
-  */
-
-function returnFileSize(number) {
-  if (number < 1e3) {
-    return `${number} bytes`;
-  } else if (number >= 1e3 && number < 1e6) {
-    return `${(number / 1e3).toFixed(1)} KB`;
-  }
-  return `${(number / 1e6).toFixed(1)} MB`;
-}
-
-function updateFileList() {
-  while (preview.firstChild) {
-    preview.removeChild(preview.firstChild);
-  }
-
-  if (file_input.files.length === 0) {
-    const file_list_item = document.createElement("p");
-    file_list_item.textContent = "No files currently selected for upload";
-    preview.appendChild(file_list_item);
-    return;
-  }
-
-  displaySelectedFiles();
-}
-function displaySelectedFiles() {
-  while (preview.firstChild) {
-    preview.removeChild(preview.firstChild);
-  }
-
-  const list = document.createElement("ul");
-  preview.appendChild(list);
-}
-
- const curFiles = file_input.files;
-  console.log(curFiles);
-  if (curFiles.length === 0) {
-    const file_list_item = document.createElement("p");
-    file_list_item.textContent = "No files currently selected for upload";
-    preview.appendChild(file_list_item);
-  } else {
-    const file_list_item = document.createElement("ol");
-    preview.appendChild(file_list_item);
-
-    for (const file of curFiles) {
-      const list_item = document.createElement("li");
-      const file_list_item = document.createElement("p");
-      if (validFileType(file)) {
-        file_list_item.textContent = `File name ${file.name}, file size ${returnFileSize(
-          file.size,
-        )}.`;
-        const file_input = document.createElement("file_input");
-        file_input.src = URL.createObjectURL(file);
-        file_input.alt = file_input.title = file.name;
-
-        list_item.appendChild(file_input);
-        list_item.appendChild(list_item);
-      } else {
-        list_item.textContent = `File name ${file.name}: Not a valid file type. Update your selection.`;
-        list_item.appendChild(list_item);
-      }
+  submitButton.addEventListener('click', () => {
+    const file = file_input.files[0];
+    if (!file) {
+      dropArea.innerHTML = `<p>No files currently selected for upload</p>`;
+      return;
     }
-      list.appendChild(list_item);
-      updateFileList();
-      displaySelectedFiles();
 
-}
+    // Preview the current file
+    previewFile(file);
+
+    // Store the file in memory
+    submittedFiles.push(file);
+
+    // Add entry to submitted list
+    const index = submittedFiles.length - 1;
+    const li = document.createElement('li');
+    li.textContent = file.name;
+    li.style.cursor = 'pointer';
+    li.addEventListener('click', () => {
+      previewFile(submittedFiles[index]);
+    });
+
+    submittedFilesList.appendChild(li);
+
+    // Clear the input so a new file can be chosen again
+    file_input.value = '';
+  });
+});
+
+
+/* drag/drop functionality
+const fileUploadArea = document.querySelector('.file-upload-area');
+fileUploadArea.addEventListener('dragover', (e) => {
+  e.preventDefault();
+  fileUploadArea.classList.add('dragging');
+});
+fileUploadArea.addEventListener('dragleave', () => {
+  fileUploadArea.classList.remove('dragging');
+});
+fileUploadArea.addEventListener('drop', (e) => {
+  e.preventDefault();
+  fileUploadArea.classList.remove('dragging');
+  
+  const files = e.dataTransfer.files;
+  if (files.length > 0) {
+    const file = files[0];
+    const reader = new FileReader();
+    
+    reader.onload = (event) => {
+      const file = document.createElement('file');
+      file.src = event.target.result;
+      file.classList.add('uploaded-file');
+      fileUploadArea.innerHTML = ''; // Clear previous content
+      fileUploadArea.appendChild(file);
+    };
+    
+    reader.readAsDataURL(file);
+  }
+});
+
+*/
 
 
 
