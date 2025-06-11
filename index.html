@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+<div class="background"> 
   <head>
     <meta charset="UTF-8" />
         <title>ResumeRadar</title>
@@ -18,7 +19,7 @@
 <section>
   <div id="job-description" class="jd">
       <h2>Job Description</h2>
-      <label>What role are you applying for?
+      <label>
         <input type="text" id="job-description-input" class="jd-input" placeholder="Paste job description here:" />
       </label>
   </div>
@@ -27,11 +28,13 @@
 
   <section>
     <div id="file-upload-area" class="dropArea">
-        <input class="resumebutton" type="file" accept=".docx,.doc,.pdf">Upload Resume</input>
-        <p>Or drop a file</p>
-        <p>.docx or .pdf</p>
-        <!--insert inbox emoji-->
-      <p>📤</p>
+        <input class="resumebutton" type="file" accept=".docx,.doc,.pdf"></input>
+        <p>Or drop a file (.doc, .docx, or .pdf)</p>
+      <h1>📤</h1>
+      <div class="preview">
+        <p>No files currently selected for upload</p>
+      </div>
+      <input type="submit" value="Submit" class="submitbutton"></input>
     </div>
 </section>
 </form>
@@ -44,4 +47,5 @@
 <script type="module" src="/src/main.jsx" defer></script>
 <style type="module" src="/src/App.css"></style>
   </body>
+</div>
 </html>
