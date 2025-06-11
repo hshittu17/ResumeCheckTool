@@ -9,168 +9,96 @@ createRoot(document.getElementById('root')).render(
 )
   */
 
-console.log("Hello from main.jsx");
-const dropArea = document.getElementById('#file-upload-area');
-
-// Prevent default drag behaviors to allow custom handling
-['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-    dropArea.addEventListener(eventName, preventDefaults, false)
-});
-
-const initApp = () => {
-  const dropArea = document.querySelector('#file-upload-area');
-  const active = () => dropArea.classList.add('button:hover'); //decide how you want the drop area to be 
-   const inactive = () => dropArea.classList.remove(''); 
-   
-   const preventDefaults = (e) => {
-    e.preventDefault()
-    e.stopPropagation()
-  }
-   
-  ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-  dropArea.addEventListener(eventName, highlight, prevents)
-  });
-
-  ['dragcenter', 'dragover'].forEach(eventName => {
-    dropArea.addEventListener(eventName, active)
-  });
-
-  ['dragleave', 'drop'].forEach(eventName => {
-    dropArea.addEventListener(eventName, inactive)
-  });
-  
-  dropArea.addEventListener('drop', handleDrop, false);
-   
 
 
-}
-/*
-function preventDefaults (e) {
-  e.preventDefault()
-  e.stopPropagation()
-}
-  */
 
-/* Highlight drop area when item is dragged over it
-['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-  dropArea.addEventListener(eventName, highlight, false)
-})
+ //auto complete code that checks filelist from the html, appends uploaded files to an empty list but checks if the list is empty first const curFiles = input.files;
+ const file_input = document.querySelector("#file-upload-area");
+ file_input.addEventListener("change", updateFileList);
+const preview = document.querySelector(".preview");
 
-['dragleave', 'drop'].forEach(eventName => {
-  dropArea.addEventListener(eventName, unhighlight, false)
-})
-
-
-function highlight(e) {
-  dropArea.classList.add('highlight')
-}
-
-function unhighlight(e) {
-  dropArea.classList.remove('highlight')
-}
-  */
-
-// Handle dropped files
-dropArea.addEventListener('drop', handleDrop, false)
-
-function handleDrop(e) {
-  const dt = e.dataTransfer
-  const files = dt.files
-
-  handleFiles(files)
-  console.log(files);
-}
-
-function handleFiles(files) {
-  files = [...files]
-  files.forEach(previewFile)
-  console.log(files);
-}
-
-function previewFile(file) {
-  let reader = new FileReader()
-  reader.readAsDataURL(file)
-  reader.onloadend = function() {
-    let img = document.createElement('img')
-    img.src = reader.result
-    document.getElementById('#file-upload-area').appendChild(img)
-  }
-}
-
-const input = document.querySelector("input");
-const preview = document.querySelector(".jd");
-
-input.style.opacity = 0;
-
-input.addEventListener("change", updateFileDisplay);
-
-//checks if the file is a valid type
-const fileTypes = [
-  "application/pdf", 
-  "application/msword,", //doc
-  "application/vnd.openxmlformats-officedocument.wordprocessingml.document", //docx
-];
 function validFileType(file) {
+  const fileTypes = [
+    ".docx",
+    ".doc",
+    ".pdf"
+  ];
   return fileTypes.includes(file.type);
 }
+/*
+function returnFileSize(size) => {
+  if (size < 1024) return `${size} bytes`;
+  else if (size < 1048576) return `${(size / 1024).toFixed(2)} KB`;
+  else return `${(size / 1048576).toFixed(2)} MB`;
+}
+  */
 
-function updateFileDisplay() {
-  //while loop to empty the previous contents
+function returnFileSize(number) {
+  if (number < 1e3) {
+    return `${number} bytes`;
+  } else if (number >= 1e3 && number < 1e6) {
+    return `${(number / 1e3).toFixed(1)} KB`;
+  }
+  return `${(number / 1e6).toFixed(1)} MB`;
+}
+
+function updateFileList() {
   while (preview.firstChild) {
     preview.removeChild(preview.firstChild);
   }
-  
-  //sets the current file to the input file as an array
-  const curFiles = input.files;
-  if (curFiles.length === 0) {
-    const para = document.createElement("p");
-    para.textContent = "No files currently selected for upload";
-    preview.appendChild(para);
-  } else { //since the list is not empty, we can create a list and append the files to it
-    const list = document.createElement("ol");
-    preview.appendChild(list);
 
-    // Loop through the file list and create a html list item for each file
-    for (const file of curFiles) {
-      const listItem = document.createElement("li");
-      const para = document.createElement("p");
-      if (validFileType(file)) {
-        para.textContent = `File name ${file.name}, file size ${returnFileSize(
-          file.size,
-        )}.`;
-        const image = document.createElement("img");
-        image.src = URL.createObjectURL(file);
-        image.alt = image.title = file.name;
-
-        listItem.appendChild(image);
-        listItem.appendChild(para);
-      } else {
-        para.textContent = `File name ${file.name}: Not a valid file type. Update your selection.`;
-        listItem.appendChild(para);
-      }
-
-      list.appendChild(listItem);
-    }
+  if (file_input.files.length === 0) {
+    const file_list_item = document.createElement("p");
+    file_list_item.textContent = "No files currently selected for upload";
+    preview.appendChild(file_list_item);
+    return;
   }
+
+  displaySelectedFiles();
+}
+function displaySelectedFiles() {
+  while (preview.firstChild) {
+    preview.removeChild(preview.firstChild);
+  }
+
+  const list = document.createElement("ul");
+  preview.appendChild(list);
 }
 
-  /* auto complete code that checks filelist from the html, appends uploaded files to an empty list but checks if the list is empty first const curFiles = input.files;
-  const curFiles = input.files;
+ const curFiles = file_input.files;
   console.log(curFiles);
-  const fileList = document.querySelector(".file-list");
-  fileList.innerHTML = "";
   if (curFiles.length === 0) {
-    const listItem = document.createElement("li");
-    listItem.textContent = "No files currently selected for upload";
-    fileList.appendChild(listItem);
+    const file_list_item = document.createElement("p");
+    file_list_item.textContent = "No files currently selected for upload";
+    preview.appendChild(file_list_item);
   } else {
+    const file_list_item = document.createElement("ol");
+    preview.appendChild(file_list_item);
+
     for (const file of curFiles) {
-      const listItem = document.createElement("li");
-      listItem.textContent = `${file.name} (${file.size} bytes)`;
-      fileList.appendChild(listItem);
+      const list_item = document.createElement("li");
+      const file_list_item = document.createElement("p");
+      if (validFileType(file)) {
+        file_list_item.textContent = `File name ${file.name}, file size ${returnFileSize(
+          file.size,
+        )}.`;
+        const file_input = document.createElement("file_input");
+        file_input.src = URL.createObjectURL(file);
+        file_input.alt = file_input.title = file.name;
+
+        list_item.appendChild(file_input);
+        list_item.appendChild(list_item);
+      } else {
+        list_item.textContent = `File name ${file.name}: Not a valid file type. Update your selection.`;
+        list_item.appendChild(list_item);
+      }
     }
-  }
-*/
+      list.appendChild(list_item);
+      updateFileList();
+      displaySelectedFiles();
+
+}
+
 
 
 /* trying to add gradient follows cursor effect
