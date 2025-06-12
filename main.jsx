@@ -12,11 +12,11 @@ createRoot(document.getElementById('root')).render(
   */
 
 // File Upload and Preview Functionality after submit button click
-document.addEventListener('DOMContentLoaded', () => {
-  const file_input = document.querySelector('#file-upload-area');
+document.addEventListener('DOMContentLoaded', () => { //domContentLoaded ensures the DOM is fully loaded before running the script
+  const file_input = document.querySelector('.resumeUploadButton');
   const submitButton = document.querySelector('.submitButton');
-  const dropArea = document.querySelector('.dropArea');
-  const submittedFilesList = document.querySelector('submittedFilesList');
+  const displayArea = document.querySelector('.displayArea');
+  const submittedFilesList = document.querySelector('.submittedFilesList');
 
   const submittedFiles = [];
 
@@ -37,15 +37,21 @@ document.addEventListener('DOMContentLoaded', () => {
         : `<p>Preview not available for this file type. Download below:</p>
            <a href="${fileURL}" download="${file.name}">Download ${file.name}</a>`}
     `;
-    dropArea.innerHTML = preview;
+    displayArea.innerHTML = preview;
   };
 
+
+  // Handle file submission with error message if no file is uploaded
   submitButton.addEventListener('click', () => {
     const file = file_input.files[0];
+    const statusMessage = document.querySelector('.statusMessage');
+
     if (!file) {
-      dropArea.innerHTML = `<p>No files currently selected for upload</p>`;
+      statusMessage.innerHTML = `<p style="color: red;">*No files currently selected for upload</p>`;
       return;
     }
+  
+    statusMessage.innerHTML = ''; // Clear the status if file is valid
 
     // Preview the current file
     previewFile(file);
@@ -67,6 +73,35 @@ document.addEventListener('DOMContentLoaded', () => {
     // Clear the input so a new file can be chosen again
     file_input.value = '';
   });
+
+  //handle drag and drop functionality
+  const fileUploadArea = document.querySelector('.file-upload-area');
+  fileUploadArea.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    fileUploadArea.classList.add('dragging');
+  });
+  fileUploadArea.addEventListener('dragleave', () => {
+    fileUploadArea.classList.remove('dragging');
+  });
+  fileUploadArea.addEventListener('drop', (e) => {
+    e.preventDefault();
+    fileUploadArea.classList.remove('dragging');
+    
+    const files = e.dataTransfer.files;
+    if (files.length > 0) {
+      const file = files[0];
+      const reader = new FileReader();
+      
+      reader.onload = (event) => {
+        const fileURL = event.target.result;
+        previewFile(fileURL);
+        displayArea.innerHTML = preview;
+      };
+      
+      reader.readAsDataURL(file);
+    }
+  });
+
 });
 
 
