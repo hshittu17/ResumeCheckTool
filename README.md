@@ -6,7 +6,7 @@ Goal: to create a web app that allows users to input a job description and uploa
 
 # Run on React + Vite
 
-## Step 1: Install node.js & npm
+## <a href="https://vitejs.dev/" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/vite-colored.svg" width="36" height="36" alt="Vite" /></a> <a href="https://reactjs.org/" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/react-colored.svg" width="36" height="36" alt="React" /></a>Step 1: Install node.js & npm
 
 Vite requires Node.js version 18+ or 20+. However, some templates require a higher Node.js version to work, please upgrade if your package manager warns about it.
 Select your operating system and architecture [here](https://nodejs.org/en/download/). Npm is included with Node.js.
