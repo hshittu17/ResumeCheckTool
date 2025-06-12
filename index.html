@@ -14,36 +14,41 @@
     <div id="root"></div>
 </section>
 
-
-<form method="post" enctype="multipart/form-data"></form> <!-- use action attribute to send the data somewhere. insert url-->
-<section>
-  <div id="job-description" class="jd">
-      <h2>Job Description</h2>
-      <label>
-        <input type="text" id="job-description-input" class="jd-input" placeholder="Paste job description here:" />
-      </label>
-  </div>
-</section>
-
-
+<div id="submissionArea">
+  <form method="post" enctype="multipart/form-data"></form> <!-- use action attribute to send the data somewhere. insert url-->
   <section>
-    <div id="file-upload-area" class="dropArea">
-      <input class="resumeUploadButton" type="file" accept=".docx,.doc,.pdf"></input>
-          <div class="displayArea">
-            <p>Or drop a file (.doc, .docx, or .pdf)</p>
-            <h1>📤</h1>
-          </div>
-      <div class="statusMessage">
-        <p style="opacity: 0;">No files currently selected for upload</p>
-      </div>
-      <input type="submit" value="Submit" class="submitButton"></input>
-      <div class="submittedFilesList">
-      <p style="font-weight: bold;">Uploaded Files:</p>
-        <li></li>
-      </div>
+    <div id="job-description" class="jd">
+        <h2>Job Description</h2>
+        <label>
+          <input type="text" id="job-description-input" class="jd-input" placeholder="Paste job description here:" />
+        </label>
+      <div class="jdDisplayArea"></div>
     </div>
-</section>
-</form>
+  </section>
+
+
+    <section>
+      <div id="file-upload-area" class="dropArea">
+        <input class="resumeUploadButton" type="file" accept=".docx,.doc,.pdf"></input>
+            <div class="displayArea">
+              <p>Or drop a file (.doc, .docx, or .pdf)</p>
+              <h1>📤</h1>
+            </div>
+        <div class="resumeStatusMessage">
+          <p style="opacity: 0;">No files currently selected for upload</p>
+        </div>
+        <div class="jdStatusMessage">
+          <p style="opacity: 0;">Please enter a job description</p>
+        </div>
+        <input type="submit" value="Submit" class="submitButton"></input>
+        <div class="submittedFilesList">
+        <p style="font-weight: bold;">Uploaded Files:</p>
+          <li></li>
+        </div>
+      </div>
+  </section>
+  </form>
+</div>
 
 <section>
   <button id="clearButton" class="alterbutton">Clear History</button>
