@@ -28,19 +28,25 @@
 
   <section>
     <div id="file-upload-area" class="dropArea">
-        <input class="resumeUploadButton" type="file" accept=".docx,.doc,.pdf"></input>
-        <p>Or drop a file (.doc, .docx, or .pdf)</p>
-      <h1>📤</h1>
-      <div class="preview">
-        <p>No files currently selected for upload</p>
+      <input class="resumeUploadButton" type="file" accept=".docx,.doc,.pdf"></input>
+          <div class="displayArea">
+            <p>Or drop a file (.doc, .docx, or .pdf)</p>
+            <h1>📤</h1>
+          </div>
+      <div class="statusMessage">
+        <p style="opacity: 0;">No files currently selected for upload</p>
       </div>
       <input type="submit" value="Submit" class="submitButton"></input>
+      <div class="submittedFilesList">
+      <p style="font-weight: bold;">Uploaded Files:</p>
+        <li></li>
+      </div>
     </div>
 </section>
 </form>
 
 <section>
-  <button class="alterbutton">View History</button>
+  <button id="clearButton" class="alterbutton">Clear History</button>
   <p>All rights reserved © Shi2</p>
 </section>
 
