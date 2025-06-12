@@ -44,26 +44,34 @@ h1 {
   text-align: center;
 }
 
-#resumebutton {
-  border-radius: 8px;
+input {
+  border-radius: 0.75rem;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 800;
   font-family: inherit;
-  background-color: #00F700;
-  color: #1a1a1a;
+  color: #ffffff;
   cursor: pointer;
   transition: border-color 0.25s;
   margin: 1em;
   text-align: center;
+  align-items: center;
+  justify-content: center;
+  justify-self: center;
+  border-color: #FFF;
 }
-#resumebutton:hover {
+input[type="button"] {
+  background-color: #00F700;
+  background: #00F700;
+}
+
+input:hover {
   background-color: #FFF;
   color: #1a1a1a;
 }
-#resumebutton:focus,
-#resumebutton:focus-visible {
+input:focus,
+input:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
@@ -74,8 +82,12 @@ h1 {
   padding: 0.6rem 1.2rem;
   border-radius: 8px;
   margin-top: 2rem;
+  font-weight: bold;
 }
 .alterbutton:hover {
+  background-color: #FFF;
+  color: #1a1a1a;
+  font-weight: bold;
   border-color: #fff;
 }
 
@@ -123,7 +135,6 @@ section {
   background: linear-gradient(125deg,rgba(0, 125, 0, 1) 0%, rgba(36, 36, 36, 0) 50%);
   border-color: #00F700;
   text-shadow: rgb(0, 0, 0) 1px 0 10px;
-  border-weight: 1px;
   border-style: solid;
   border-radius: 8px;
   margin-top: 3rem;
@@ -144,7 +155,6 @@ head {
   border-color: #ffffff;
   background: rgba(255, 255, 255, 0);
   color: #ffffff;
-  border-weight: 1px;
   border-bottom-style: solid;
   border-left-style: none;
   border-right-style: none;
@@ -158,6 +168,22 @@ head {
 label {
   margin-bottom: 1em;
 }
+
+#background {
+  background-image: url(https://unsplash.com/photos/green-and-black-line-illustration-IoWGYQi1SZA);
+  background-size: cover;
+  background-position: center;
+}
+
+#file-upload-area:hover {
+  color: #FFF;
+}
+#file-upload-area.dragover {
+  content: 'Drop your files here';
+  font-size: 1.5em;
+  background-color: #00F700;
+}
+
 /* trying to add interactive gradient
 #file-upload-area span {
   position: relative;
