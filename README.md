@@ -4,7 +4,7 @@ Objective: build a project using AWS AI services to gain hands-on experience and
 
 Goal: to create a web app that allows users to input a job description and upload their resumes to be scored with suggestions for improvement - "ResumeRadar"
 
-# Run this app on React + Vite
+# Run on React + Vite
 
 ## Step 1: Install node.js & npm
 
